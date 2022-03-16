@@ -1,7 +1,8 @@
-package com.gmail.giphytestingapp
+package com.gmail.giphytestingapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.gmail.giphytestingapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
