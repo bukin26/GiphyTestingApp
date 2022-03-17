@@ -1,8 +1,10 @@
 package com.gmail.giphytestingapp.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,9 @@ class GifsAdapter : PagingDataAdapter<DataItem, GifsAdapter.Holder>(GifsDiffCall
             if (gif.title.isNotBlank()) titleTextView.text = gif.title
             if (gif.sourcePostUrl.isNotBlank()) sourceTextView.text = gif.sourcePostUrl
             loadGif(gifImageView, gif.images.previewGif.url)
+            root.setOnClickListener {
+                navigateToGif(gif, it)
+            }
         }
     }
 
@@ -44,9 +49,19 @@ class GifsAdapter : PagingDataAdapter<DataItem, GifsAdapter.Holder>(GifsDiffCall
         }
     }
 
+    private fun navigateToGif(
+        gif: DataItem,
+        view: View
+    ) {
+        val direction =
+            ListFragmentDirections.actionListFragmentToDetailsFragment(gif.id)
+        view.findNavController().navigate(direction)
+    }
+
     class Holder(
         val binding: ItemGiftBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    ) : RecyclerView.ViewHolder(binding.root) {
+    }
 }
 
 class GifsDiffCallback : DiffUtil.ItemCallback<DataItem>() {
