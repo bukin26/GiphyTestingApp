@@ -16,8 +16,8 @@ class GifsAdapter : PagingDataAdapter<DataItem, GifsAdapter.Holder>(GifsDiffCall
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val gif = getItem(position) ?: return
         with(holder.binding) {
-            titleTextView.text = gif.title
-            sourceTextView.text = gif.sourcePostUrl
+            if (gif.title.isNotBlank()) titleTextView.text = gif.title
+            if (gif.sourcePostUrl.isNotBlank()) sourceTextView.text = gif.sourcePostUrl
             loadGif(gifImageView, gif.images.previewGif.url)
         }
     }

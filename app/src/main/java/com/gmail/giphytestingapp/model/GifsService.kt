@@ -27,7 +27,7 @@ interface GifsService {
 
         fun create(): GifsService {
             val logger =
-                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.HEADERS }
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)

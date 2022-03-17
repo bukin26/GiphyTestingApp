@@ -15,13 +15,13 @@ import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
+@ExperimentalCoroutinesApi
 class ListViewModel @Inject constructor(
     private val listRepository: ListRepository
 ) : ViewModel() {
 
     private val searchBy = MutableLiveData("")
 
-    @ExperimentalCoroutinesApi
     val gifFlow: Flow<PagingData<DataItem>> = searchBy.asFlow().flatMapLatest {
         listRepository.getPagedGifs(it)
     }.cachedIn(viewModelScope)
@@ -29,9 +29,5 @@ class ListViewModel @Inject constructor(
     fun setSearchBy(value: String) {
         if (this.searchBy.value == value) return
         this.searchBy.value = value
-    }
-
-    fun refresh() {
-        this.searchBy.postValue(this.searchBy.value)
     }
 }

@@ -1,5 +1,6 @@
 package com.gmail.giphytestingapp.model
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.gmail.giphytestingapp.model.entity.DataItem
@@ -13,19 +14,20 @@ class GifPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DataItem> {
-        val pageIndex = params.key ?: 0
+        val offset = params.key ?: 0
+
 
         val gifs = gifsService.searchGifs(
             query = query,
             limit = params.loadSize,
-            offset = pageIndex
+            offset = offset
         )
 
         return try {
             return LoadResult.Page(
                 data = gifs.data,
-                prevKey = if (pageIndex == 0) null else pageIndex - params.loadSize,
-                nextKey = if (gifs.pagination.count < params.loadSize) null else pageIndex + params.loadSize + 1
+                prevKey = if (offset == 0) null else offset - params.loadSize,
+                nextKey = if (gifs.data.size == params.loadSize) params.loadSize + offset else null
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
