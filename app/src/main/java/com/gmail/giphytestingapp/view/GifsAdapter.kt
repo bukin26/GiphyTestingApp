@@ -54,7 +54,7 @@ class GifsAdapter : PagingDataAdapter<DataItem, GifsAdapter.Holder>(GifsDiffCall
         view: View
     ) {
         val direction =
-            ListFragmentDirections.actionListFragmentToDetailsFragment(gif.id)
+            ListFragmentDirections.actionListFragmentToDetailsFragment(gif.images.original.url)
         view.findNavController().navigate(direction)
     }
 

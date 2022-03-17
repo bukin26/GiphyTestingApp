@@ -1,13 +1,13 @@
 package com.gmail.giphytestingapp.model
 
 import com.gmail.giphytestingapp.BuildConfig
-import com.gmail.giphytestingapp.model.entity.GifResponse
-import com.google.gson.internal.GsonBuildConfig
+import com.gmail.giphytestingapp.model.entity.GifsResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GifsService {
@@ -20,7 +20,7 @@ interface GifsService {
         @Query("offset") offset: Int,
         @Query("rating") rating: String = "q",
         @Query("lang") lang: String = "en"
-    ): GifResponse
+    ): GifsResponse
 
     companion object {
         private const val BASE_URL = "https://api.giphy.com/"
